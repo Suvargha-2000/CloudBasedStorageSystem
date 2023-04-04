@@ -36,14 +36,15 @@ class createUser(APIView) :
         user.save()
         return HttpResponse("User Created")
     
-# this is not created properly need to delete only the authenticated user 
 class deleteUser(APIView):
     permission_classes = (IsAuthenticated, )
 
     def post(self , request) : 
-        requestData = json.loads(request.body)
-        userName = requestData["userName"]
 
+        print(request.user)
+        # return HttpResponse("HJ")
+
+        userName = request.user
         try:
             u = User.objects.get(username = userName)
             u.delete()
